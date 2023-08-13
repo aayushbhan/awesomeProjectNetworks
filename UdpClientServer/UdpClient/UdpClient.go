@@ -24,17 +24,27 @@ func main() {
 		_ = conn.Close()
 	}(conn)
 
-	fmt.Println("Enter some text")
-
 	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
 
-	inputText := scanner.Text()
+	for {
+		fmt.Println("Enter some text")
 
-	_, err = conn.Write([]byte(inputText))
+		scanner.Scan()
 
-	handleError(err)
+		inputText := scanner.Text()
 
+		_, err = conn.Write([]byte(inputText))
+
+		handleError(err)
+
+		buffer := make([]byte, 1024)
+
+		_, err = conn.Read(buffer)
+
+		handleError(err)
+
+		fmt.Println("Received response from server: " + string(buffer))
+	}
 }
 
 func handleError(err error) {

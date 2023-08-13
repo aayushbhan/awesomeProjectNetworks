@@ -28,13 +28,21 @@ func main() {
 
 		buffer := make([]byte, 1024)
 
-		n, _, err := ln.ReadFromUDP(buffer)
+		n, clientUdpAddr, err := ln.ReadFromUDP(buffer)
 
 		handleError(err)
 
 		text := bytes.ToUpper(buffer)
 
 		fmt.Println("The received text is: " + string(text[:]) + " of length: " + strconv.Itoa(n))
+
+		_, err = ln.WriteToUDP(text, clientUdpAddr)
+
+		fmt.Println("Sent response back to client")
+
+		handleError(err)
+
+		break
 	}
 }
 
