@@ -15,7 +15,7 @@ Feel free to explore the projects, use them as learning resources, and even cont
 
 ## Projects
 
-1. [UDP Client-Server Communication](/UdpClientServer) - Demonstrates a simple UDP client-server communication setup, where the server listens for incoming UDP messages on localhost and converts received text to uppercase, while the client sends user-input text to the server using UDP
+1. [UDP Client-Server Communication](/UdpClientServer) - Demonstrates a simple UDP client-server communication setup, where the server listens for incoming UDP messages on localhost and converts received text to uppercase and returns it to the client as a response, while the client sends user-input text to the server using UDP.
 
 ## Getting Started
 
