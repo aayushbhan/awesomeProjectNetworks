@@ -1,9 +1,9 @@
 package main
 
 import (
+	helper "awesomeProject/HelperLibrary"
 	"bufio"
 	"fmt"
-	"log"
 	"net"
 	"os"
 )
@@ -18,7 +18,7 @@ func main() {
 
 	conn, _ := net.DialUDP(network, nil, udpAdr)
 
-	handleError(err)
+	helper.HandleError(err)
 
 	defer func(conn *net.UDPConn) {
 		_ = conn.Close()
@@ -35,20 +35,14 @@ func main() {
 
 		_, err = conn.Write([]byte(inputText))
 
-		handleError(err)
+		helper.HandleError(err)
 
 		buffer := make([]byte, 1024)
 
 		_, err = conn.Read(buffer)
 
-		handleError(err)
+		helper.HandleError(err)
 
 		fmt.Println("Received response from server: " + string(buffer))
-	}
-}
-
-func handleError(err error) {
-	if err != nil {
-		log.Fatal(err)
 	}
 }

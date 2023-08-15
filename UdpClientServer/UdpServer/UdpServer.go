@@ -1,9 +1,9 @@
 package main
 
 import (
+	helper "awesomeProject/HelperLibrary"
 	"bytes"
 	"fmt"
-	"log"
 	"net"
 	"strconv"
 )
@@ -18,7 +18,7 @@ func main() {
 
 	ln, err := net.ListenUDP(network, udpAddr)
 
-	handleError(err)
+	helper.HandleError(err)
 
 	defer func(ln *net.UDPConn) {
 		_ = ln.Close()
@@ -30,7 +30,7 @@ func main() {
 
 		n, clientUdpAddr, err := ln.ReadFromUDP(buffer)
 
-		handleError(err)
+		helper.HandleError(err)
 
 		text := bytes.ToUpper(buffer)
 
@@ -40,14 +40,8 @@ func main() {
 
 		fmt.Println("Sent response back to client")
 
-		handleError(err)
+		helper.HandleError(err)
 
 		break
-	}
-}
-
-func handleError(err error) {
-	if err != nil {
-		log.Fatal(err)
 	}
 }
