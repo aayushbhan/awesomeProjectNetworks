@@ -9,27 +9,25 @@ import (
 )
 
 func main() {
+	network, address := "udp", "localhost:2001"
 
-	var network, address string
-
-	network, address = "udp", "localhost:2001"
-
-	udpAddr, _ := net.ResolveUDPAddr(network, address)
+	udpAddr, err := net.ResolveUDPAddr(network, address)
+	helper.HandleError(err)
 
 	ln, err := net.ListenUDP(network, udpAddr)
-
 	helper.HandleError(err)
 
 	defer func(ln *net.UDPConn) {
-		_ = ln.Close()
+		err := ln.Close()
+		if err != nil {
+			helper.HandleError(err)
+		}
 	}(ln)
 
+	buffer := make([]byte, 1024)
+
 	for {
-
-		buffer := make([]byte, 1024)
-
 		n, clientUdpAddr, err := ln.ReadFromUDP(buffer)
-
 		helper.HandleError(err)
 
 		text := bytes.ToUpper(buffer)
@@ -39,8 +37,6 @@ func main() {
 		_, err = ln.WriteToUDP(text, clientUdpAddr)
 
 		fmt.Println("Sent response back to client")
-
-		helper.HandleError(err)
 
 		break
 	}

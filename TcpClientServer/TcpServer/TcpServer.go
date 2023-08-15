@@ -10,12 +10,9 @@ import (
 )
 
 func main() {
-	var network, address string
-
-	network, address = "tcp", "localhost:8000"
+	network, address := "tcp", "localhost:8000"
 
 	ln, err := net.Listen(network, address)
-
 	helper.HandleError(err)
 
 	defer func(conn net.Listener) {
@@ -25,17 +22,14 @@ func main() {
 		}
 	}(ln)
 
-	scanner := bufio.NewScanner(os.Stdin)
-
 	conn, err := ln.Accept()
-
 	helper.HandleError(err)
 
+	scanner := bufio.NewScanner(os.Stdin)
 	buffer := make([]byte, 1024)
 
 	for {
 		n, err := conn.Read(buffer)
-
 		helper.HandleError(err)
 
 		clientOutput := string(buffer[:n])
@@ -47,11 +41,9 @@ func main() {
 		}
 
 		scanner.Scan()
-
 		clientInput := scanner.Bytes()
 
 		_, err = conn.Write(clientInput)
-
 		helper.HandleError(err)
 
 		if strings.ToLower(string(clientInput)) == "exit" {
