@@ -20,6 +20,8 @@ Feel free to explore the projects, use them as learning resources, and even cont
 2. [TCP Client-Server Communication](/TcpClientServer) - Demonstrate a simple TCP client-server communication setup. The server listens for incoming connections and echoes received messages. The client connects to the server and allows users to send messages to it. Communication continues until either party sends "exit".
 
 3. [Web Server Implementation](/WebServer) - Demonstrates a TCP server that listens on localhost, processes incoming requests to retrieve and send files based on HTTP-like responses, demonstrating basic web server-client interaction using Go's net package and custom helper libraries.
+
+4. [Udp Pinger](/UdpPinger) - The client sends "Ping" messages to the UDP server on localhost and measures the round-trip time for a response and has a timeout for 1 sec. The server listens for incoming UDP messages on the localhost and responds with "Pong" messages.
 ## Getting Started
 
 Each project is contained within its own directory.
